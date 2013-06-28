@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="yuner.example.hello"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="17"
+        android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <application
+        android:name ="yuner.example.hello.ConnectedApp"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="yuner.example.hello.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="yuner.example.hello.chatter.ChatActivity">
+        </activity>
+        <activity
+            android:name="yuner.example.hello.chatChoose.ChooseRoomActivity">
+        </activity>
+        <activity
+            android:name="yuner.example.hello.chatChoose.FriendListActivity">
+        </activity>
+        <service
+            android:name="yuner.example.hello.chatServices.ChatService">
+        </service>
+    </application> 
+
+</manifest>

@@ -1,0 +1,53 @@
+package org.yuner.www.database;
+
+/**
+ * this database package is responsible for all data storing and retrieval
+ */
+
+public class IdManager {
+
+	/*  the singleton instance of IdManager  */
+	private static IdManager mIdManager;
+
+	/*  the maximum amount of users we assume  */
+	private static final int maxUsr = 2000;
+
+	/*  since now we just assume no more than 2000 people are using our app, so we provide have this array to record the id distribution,
+	 *  if it's 1, taken, 0 non-taken
+	 */
+	private int mIdTaken[] = new int[maxUsr];
+	
+	/* the 0-input constructer */
+	public IdManager() {
+		for(int p=0;p<maxUsr;p++) {
+			mIdTaken[p]=0;
+		}
+	}
+
+	/*  class like IdManage needs to be singleton  */
+	public static IdManager getIdManager() {
+		if(mIdManager==null) {
+			mIdManager = new IdManager();
+		}
+		return mIdManager;
+	}
+
+	public int getId() {
+		for(int p=0;p<maxUsr;p++) {
+			if(mIdTaken[p]==0) {
+				changeId(1, p);
+				break;
+			}	
+		}	
+		return p;
+	}
+
+
+	public void setId(int id) {
+		changeId(0, id);
+	}
+	
+	public synchronized void changeId(int act, int id) {
+		mIdTaken[id]=act;
+	}
+}

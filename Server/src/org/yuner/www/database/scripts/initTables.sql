@@ -31,3 +31,12 @@ create table friendListTable
 	friendLocation		varchar(100),
 	foreign key(masterId) references userTable(userId) on delete cascade
 );
+
+create table unSendMsgs
+(
+	senderId 			int,
+	receiverId 			int,
+	msg					text,
+	_datetime			datetime,
+	type				int
+)

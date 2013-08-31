@@ -53,7 +53,8 @@ public class ClientActivity {
 			
 			mClientListen = new ClientListenThread(this,mBuffRder);
 			mClientListen.start();
-			mClientSend = new ClientSendThread();
+			mClientSend = new ClientSendThread(this, mBuffWter);
+			mClientSend.start();
 		}catch(Exception e){
 			System.out.println("error occurs for creating");
 			e.printStackTrace();
@@ -170,8 +171,7 @@ public class ClientActivity {
 	/* send one String */
 	public void sendOneString(String str0, int type) {
 		try {
-			mClientSend.start(mBuffWter, type + "");
-			mClientSend.start(mBuffWter, str0);
+			mClientSend.insert(type, str0);
 		} catch(Exception e) { e.printStackTrace(); }
 	}
 
@@ -235,6 +235,12 @@ public class ClientActivity {
 		UserInfo uux = DBUtil.updateUserInfomaton(uu0);
 	}
 
+	public void responsedOfMsgReceived() {
+		try {
+			mClientSend.setIsReceived();
+		} catch(Exception e) { e.printStackTrace(); }
+	}
+
 	public void goOffLine() {
 		closeConnect();
 		mServerListen.removeOneClient(this);
@@ -247,6 +253,8 @@ public class ClientActivity {
 				target0.sendOneString(getUserInfo().toString(),GlobalMsgTypes.msgFriendGoOffline);
 			}
 		}
+
+		mClientSend.saveUnsendMsgs();
 	}
 	
 	private void closeConnect()
@@ -258,5 +266,8 @@ public class ClientActivity {
 		try {
 			mClientListen.closeBufferedReader();
 		} catch (Exception e) {}
+		try {
+			mClientSend.close();
+		} catch(Exception e) {}
 	}
 }

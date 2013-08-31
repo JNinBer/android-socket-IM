@@ -75,6 +75,9 @@ public class ClientListenThread extends Thread{
 					case GlobalMsgTypes.msgAskForUnsendMsgs:
 						mClientActivity.onAskForUnsendMsgs();
 						break;
+					case GlobalMsgTypes.msgMsgReceived:
+						mClientActivity.responsedOfMsgReceived();
+						break;
 					default:
 						break;
 					}
@@ -83,7 +86,7 @@ public class ClientListenThread extends Thread{
 				e.printStackTrace();
 				System.out.println("Client Listen Shutting Down!!!");
 				// remove the class/threads etc. associated with this specific client
-//				mClientActivity.goOffLine();
+				mClientActivity.goOffLine();
 				return;
 			}
 		}

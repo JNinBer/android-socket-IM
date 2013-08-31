@@ -4,7 +4,9 @@ create table userTable
 	userId 		int				auto_increment	primary key,
 	password	varchar(100),
 	userName 	varchar(100)	unique,
-	age 		smallint,
+	birthYear   smallint,
+	birthMonth  smallint,
+	birthDay    smallint,
 	gender 		smallint,				-- 0 for female, 1 for male 
 	avatarId 	int,
 	isOnline	int,					-- 0 for offline, 1 for online
@@ -18,7 +20,9 @@ create table friendListTable
 	masterId 			int,                   -- the id of the user this friendlist belongs to
 	friendId 			int,
 	friendName 			varchar(100),
-	friendAge 			smallint,
+	friendBirthYear     smallint,
+	friendBirthMonth	smallint,
+	friendBirthDay		smallint,
 	friendGender 		smallint,
 	friendAvatarId 		int,
 	friendIsOnline		int,
@@ -27,3 +31,12 @@ create table friendListTable
 	friendLocation		varchar(100),
 	foreign key(masterId) references userTable(userId) on delete cascade
 );
+
+create table unSendMsgs
+(
+	senderId 			int,
+	receiverId 			int,
+	msg					text,
+	savedTime			datetime,
+	msgType				int
+)

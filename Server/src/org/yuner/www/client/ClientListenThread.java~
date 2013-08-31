@@ -34,12 +34,10 @@ public class ClientListenThread extends Thread{
 				}
 				else
 				{
-					String[] sbArr0 = received.split(GlobalStrings.sentMsgEnd);
-					int msgType = Integer.parseInt(sbArr0[0]);			// type of message received
+					int msgType = Integer.parseInt(received);			// type of message received
 					
 					String actualMsg = mBuffRder.readLine();
-					actualMsg = actualMsg.replace(GlobalStrings.replaceOfReturn,"\n");
-					actualMsg = actualMsg.substring(0,actualMsg.length() - GlobalStrings.sentMsgEnd.length());					
+					actualMsg = actualMsg.replace(GlobalStrings.replaceOfReturn,"\n");				
 
 					switch (msgType) {
 					case GlobalMsgTypes.msgPublicRoom:
@@ -77,6 +75,9 @@ public class ClientListenThread extends Thread{
 					case GlobalMsgTypes.msgAskForUnsendMsgs:
 						mClientActivity.onAskForUnsendMsgs();
 						break;
+					case GlobalMsgTypes.msgMsgReceived:
+						mClientActivity.responsedOfMsgReceived();
+						break;
 					default:
 						break;
 					}
@@ -85,7 +86,7 @@ public class ClientListenThread extends Thread{
 				e.printStackTrace();
 				System.out.println("Client Listen Shutting Down!!!");
 				// remove the class/threads etc. associated with this specific client
-//				mClientActivity.goOffLine();
+				mClientActivity.goOffLine();
 				return;
 			}
 		}

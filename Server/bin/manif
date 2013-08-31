@@ -1,2 +1,0 @@
-Main-Class: org.yuner.www.ServerListen
-Export-Package: org.yuner.www;org.yuner.www.client;org.yuner.www.database;org.yuner.www.beans;org.yuner.www.commons
